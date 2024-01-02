@@ -6,9 +6,9 @@ import java.util.List;
 
 public abstract class BaoCao {
     protected String maBaoCao;
-    private String tenBaoCao;
+    protected String tenBaoCao;
     private String chuoiLink;
-    private LocalDate ngayBaoCao;
+    protected LocalDate ngayBaoCao;
     private GiangVien giangVienHuongDan;
     private List<SinhVien> sinhViens=new ArrayList<>();
     protected double diem;
@@ -40,7 +40,8 @@ public abstract class BaoCao {
                         Tên báo cáo: %s
                         Chuỗi Link: %s
                         Tên giảng viên hướng dẫn: %s
-                        Sinh viên thực hiện: %s
+                        Sinh viên thực hiện: 
+                        %s
                         Ngày báo cáo: %s
                         """,
                 maBaoCao,
@@ -48,13 +49,14 @@ public abstract class BaoCao {
                 chuoiLink,
                 giangVienHuongDan.getHoTen(),
                 getDanhSachTen(sinhViens),
+
                 ngayBaoCao.format(DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER))
         );
     }
     public String getDanhSachTen(List<SinhVien> sinhViens){
         StringBuilder s= new StringBuilder();
         for (SinhVien sinhVien : sinhViens) {
-            s.append(sinhVien.getHoTen().concat(", "));
+            s.append("\t".concat(sinhVien.getHoTen().concat("\n")));
         }
         return s.toString();
     }

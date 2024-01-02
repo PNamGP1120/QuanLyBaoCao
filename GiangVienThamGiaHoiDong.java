@@ -10,24 +10,26 @@ public class GiangVienThamGiaHoiDong {
         this.nhiemVu=nhiemVu;
     }
     public void xuatNhiemVuGiangVienTrongHoiDong(){
-        System.out.printf("Mã hội đồng: %s ",this.hoiDong.getMaHoiDong());
-        System.out.printf("Họ và tên giảng viên: %s ",this.giangVien.getHoTen());
-        System.out.printf("Nhiệm vụ: %s ",this.nhiemVu);
+        System.out.printf("Mã hội đồng: %s\n",this.hoiDong.getMaHoiDong());
+        System.out.printf("Họ và tên giảng viên: %s\n",this.giangVien.getHoTen());
+        System.out.printf("Nhiệm vụ: %s\n",this.nhiemVu);
     }
     public void chamDiem(){
         System.out.printf("Họ và tên giảng viên: %s\n",this.giangVien.getHoTen());
-
+        System.out.printf("Nhiệm vụ: %s\n",this.nhiemVu);
         System.out.print("Nhập điểm: ");
         this.diem= Double.parseDouble(CauHinh.sc.nextLine());
         System.out.print("Nhận xét: ");
         this.nhanXet=CauHinh.sc.nextLine();
     }
     public void xemDiem(){
-        xuatNhiemVuGiangVienTrongHoiDong();
-        System.out.printf("Điểm: %.2f ",this.diem);
+        System.out.printf("Họ và tên giảng viên: %s\n",this.giangVien.getHoTen());
+        System.out.printf("Nhiệm vụ: %s\n",this.nhiemVu);
+        System.out.printf("Điểm: %.2f\n",this.diem);
         System.out.printf("Nhận xét: %s\n",this.nhanXet);
     }
 
+    //setter and getter
     public HoiDong getHoiDong() {
         return hoiDong;
     }

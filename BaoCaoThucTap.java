@@ -24,7 +24,8 @@ public class BaoCaoThucTap extends BaoCao{
     @Override
     public void xemDiem() {
         this.xuatBaoCao();
-        System.out.printf("Đánh giá của doanh nghiệp: %s",this.danhGiaCuaDoanhNghiep);
+        System.out.printf("Điểm: %.2f\n",this.diem);
+        System.out.printf("Đánh giá của doanh nghiệp: %s\n",this.danhGiaCuaDoanhNghiep);
     }
 
 }
