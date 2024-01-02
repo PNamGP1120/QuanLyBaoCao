@@ -4,6 +4,9 @@ import java.util.*;
 
 public class QuanLyBaoCao {
     private List<BaoCao> baoCaoList=new ArrayList<>();
+    public void themBaoCao(BaoCao...baoCaos){
+        baoCaoList.addAll(Arrays.asList(baoCaos));
+    }
     public void dangKyBaoCao(String classPate, GiangVien giangVien, SinhVien...sinhViens) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Class c=Class.forName(classPate);
         BaoCao baoCao=(BaoCao) c.getConstructor().newInstance();

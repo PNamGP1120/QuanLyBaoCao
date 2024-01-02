@@ -22,6 +22,7 @@ public class BaoCaoDoAn extends BaoCao{
     @Override
     public void xemDiem() {
         this.xuatBaoCao();
+        System.out.printf("Điểm: %.2f",this.diem);
         System.out.printf("Tỷ lệ đạo văn: %.2f",this.tyLeDaoVan);
     }
 }

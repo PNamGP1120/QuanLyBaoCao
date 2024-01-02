@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,9 @@ public class Main {
         return giangVienList.stream().filter(giangVien -> giangVien.getMaGiangVien().equals(maGiangVien)).findFirst().get();
     }
     public static void main(String[] args) {
-
+        quanLyBaoCao.themBaoCao(new BaoCaoDoAn("Đồ án 1","D:\\DoAn", LocalDate.parse("12/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),timGiangVien("GV1"),timSinhVien("2")));
+        quanLyBaoCao.themBaoCao(new BaoCaoThucTap("Thực tập 1","D:\\ThucTap", LocalDate.parse("10/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),timGiangVien("GV2"),timSinhVien("2251052068"),timSinhVien("2251052067")));
+//        quanLyBaoCao.themBaoCao(new BaoCaoKhoaLuan("Khóa luận 1","D:\\KhoaLuan",));
         boolean flagExit=true;
         while (flagExit){
             menu();
