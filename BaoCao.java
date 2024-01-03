@@ -58,7 +58,7 @@ public abstract class BaoCao {
                 ngayBaoCao.format(DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)));
     }
 
-    public String getDanhSachTen(List<SinhVien> sinhViens) {
+    public static String getDanhSachTen(List<SinhVien> sinhViens) {
         StringBuilder s = new StringBuilder();
         for (SinhVien sinhVien : sinhViens) {
             s.append("- ".concat(sinhVien.getHoTen().concat("\n")));
@@ -70,6 +70,17 @@ public abstract class BaoCao {
 
     public abstract void chamDiem();
     public abstract void suaDiem();
+
+    public void themSinhVien(SinhVien sinhVien)
+    {
+        if(sinhViens.size()<=1){
+            sinhViens.add(sinhVien);
+        }
+    }
+
+    public void xoaSinhVien(SinhVien sinhVien){
+        sinhViens.remove(sinhVien);
+    }
 
     // Getter and Setter
     public String getMaBaoCao() {
@@ -119,19 +130,6 @@ public abstract class BaoCao {
     public void setSinhViens(List<SinhVien> sinhViens) {
         this.sinhViens = sinhViens;
     }
-
-    public  void themSinhVien(SinhVien sinhVien)
-    {
-        if(sinhViens.size()<=1){
-            sinhViens.add(sinhVien);
-        }
-    }
-
-    public void xoaSinhVien(SinhVien sinhVien){
-        sinhViens.remove(sinhVien);
-    }
-
-
 
     public double getDiem() {
         return diem;

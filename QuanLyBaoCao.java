@@ -65,6 +65,9 @@ public class QuanLyBaoCao {
     public BaoCao timKiem(String maBaoBao) {
         return this.baoCaoList.stream().filter(baoCao -> baoCao.getMaBaoCao().equals(maBaoBao)).findFirst().get();
     }
+    public List<BaoCao> timKiem(String tenBaoBao,int flag) {
+        return this.baoCaoList.stream().filter(baoCao -> baoCao.getTenBaoCao().contains(tenBaoBao)).toList();
+    }
 
     public List<BaoCao> timKiem(LocalDate date) {
         return this.baoCaoList.stream().filter(baoCao -> {
@@ -83,22 +86,72 @@ public class QuanLyBaoCao {
         return this.baoCaoList.stream().filter(c::isInstance).toList();
     }
 
-    public HoiDong timKiemHoiDong(LocalDate date) throws ClassNotFoundException {
-        String classPate = "KhoaLuanTotNghiep";
-        Class c = Class.forName(classPate);
-        List<BaoCaoKhoaLuan> baoCaoKhoaLuans = (List<BaoCaoKhoaLuan>) this.baoCaoList.stream().filter(c::isInstance);
+    public HoiDong timKiemHoiDong(String maHoiDong) throws ClassNotFoundException {
+        String classPate = "BaoCaoKhoaLuan";
+        Class c=Class.forName(classPate);
+        List<BaoCaoKhoaLuan> baoCaoKhoaLuans=new ArrayList<>();
+        for(BaoCao baoCao:baoCaoList){
+            if(c.isInstance(baoCao)){
+                baoCaoKhoaLuans.add((BaoCaoKhoaLuan) baoCao);
+            }
+        }
         return baoCaoKhoaLuans.stream()
-                .filter(baoCaoKhoaLuan -> baoCaoKhoaLuan.getHoiDong().getNgayLamViec().equals(date)).findFirst().get()
+                .filter(baoCaoKhoaLuan -> baoCaoKhoaLuan.getHoiDong().getMaHoiDong().equals(maHoiDong)).findFirst().get()
                 .getHoiDong();
     }
+    public List<HoiDong> timKiemHoiDong(LocalDate date) throws ClassNotFoundException {
+        String classPate = "BaoCaoKhoaLuan";
+        Class c=Class.forName(classPate);
+        List<BaoCaoKhoaLuan> baoCaoKhoaLuans=new ArrayList<>();
+        for(BaoCao baoCao:baoCaoList){
+            if(c.isInstance(baoCao)){
+                baoCaoKhoaLuans.add((BaoCaoKhoaLuan) baoCao);
+            }
+        }
+        List<HoiDong> hoiDongs=new ArrayList<>();
 
-    public List<BaoCaoKhoaLuan> timKiemHoiDong(LocalDate date1, LocalDate date2) throws ClassNotFoundException {
-        String classPate = "KhoaLuanTotNghiep";
-        Class c = Class.forName(classPate);
-        List<BaoCaoKhoaLuan> baoCaoKhoaLuans = (List<BaoCaoKhoaLuan>) this.baoCaoList.stream().filter(c::isInstance);
-        return baoCaoKhoaLuans.stream().filter(baoCaoKhoaLuan -> {
-            return date1.isBefore(baoCaoKhoaLuan.getNgayBaoCao()) && date2.isAfter(baoCaoKhoaLuan.getNgayBaoCao());
-        }).toList();
+        baoCaoKhoaLuans.forEach(baoCaoKhoaLuan -> {
+            if(baoCaoKhoaLuan.getNgayBaoCao().isEqual(date)){
+                hoiDongs.add(baoCaoKhoaLuan.getHoiDong());
+            }
+        });
+        return hoiDongs;
+    }
+
+    public List<HoiDong> timKiemHoiDong(LocalDate date1, LocalDate date2) throws ClassNotFoundException {
+        String classPate = "BaoCaoKhoaLuan";
+        Class c=Class.forName(classPate);
+        List<BaoCaoKhoaLuan> baoCaoKhoaLuans=new ArrayList<>();
+        for(BaoCao baoCao:baoCaoList){
+            if(c.isInstance(baoCao)){
+                baoCaoKhoaLuans.add((BaoCaoKhoaLuan) baoCao);
+            }
+        }
+        List<HoiDong> hoiDongs=new ArrayList<>();
+
+        baoCaoKhoaLuans.forEach(baoCaoKhoaLuan -> {
+            if(baoCaoKhoaLuan.getNgayBaoCao().isAfter(date1)&&baoCaoKhoaLuan.getNgayBaoCao().isBefore(date2)){
+                hoiDongs.add(baoCaoKhoaLuan.getHoiDong());
+            }
+        });
+        return hoiDongs;
+    }
+
+    public List<HoiDong> timKiemHoiDong() throws ClassNotFoundException {
+        String classPate = "BaoCaoKhoaLuan";
+        Class c=Class.forName(classPate);
+        List<BaoCaoKhoaLuan> baoCaoKhoaLuans=new ArrayList<>();
+        for(BaoCao baoCao:baoCaoList){
+            if(c.isInstance(baoCao)){
+                baoCaoKhoaLuans.add((BaoCaoKhoaLuan) baoCao);
+            }
+        }
+        List<HoiDong> hoiDongs=new ArrayList<>();
+
+        baoCaoKhoaLuans.forEach(baoCaoKhoaLuan -> {
+            hoiDongs.add(baoCaoKhoaLuan.getHoiDong());
+        });
+        return hoiDongs;
     }
 
 

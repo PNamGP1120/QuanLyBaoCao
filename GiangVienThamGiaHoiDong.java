@@ -27,6 +27,8 @@ public class GiangVienThamGiaHoiDong {
     }
 
     public void xemDiem() {
+        System.out.println("____________________________________________________");
+        System.out.printf("Mã giảng viên: %s\n",this.giangVien.getMaGiangVien());
         System.out.printf("Họ và tên giảng viên: %s\n", this.giangVien.getHoTen());
         System.out.printf("Nhiệm vụ: %s\n", this.nhiemVu);
         System.out.printf("Điểm: %.2f\n", this.diem);

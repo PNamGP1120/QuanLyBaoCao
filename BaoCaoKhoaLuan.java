@@ -17,7 +17,7 @@ public class BaoCaoKhoaLuan extends BaoCao {
             String chuoiLink,
             LocalDate ngayBaoCao,
             GiangVien giangVienHuongDan,
-            List<GiangVienThamGiaHoiDong> giangViens,
+            List<GiangVien> giangViens,
             SinhVien... sinhViens) {
         super(
                 tenBaoCao,
@@ -55,6 +55,7 @@ public class BaoCaoKhoaLuan extends BaoCao {
     public void xemDiem() {
         this.xuatBaoCao();
         this.hoiDong.xemDiem();
+        System.out.println("_______________________________________________________");
         System.out.printf("Điểm trung bình: %.2f\n", this.diem);
     }
 

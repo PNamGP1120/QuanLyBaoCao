@@ -20,6 +20,7 @@ public class Main {
                         6. Tìm kiếm Báo cáo
                         7. Chấm điểm Báo cáo
                         8. Xem điểm Báo cáo
+                        9. Tìm hội đồng chấm khóa luận
                         0. Thoát chương trình
                         ======================================
                         -->\t\t""");
@@ -56,14 +57,33 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        quanLyBaoCao.themBaoCao(new BaoCaoDoAn("Đồ án 1", "D:\\DoAn",
-                LocalDate.parse("12/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)), timGiangVien("GV01"),
-                timSinhVien("SV12")));
-        quanLyBaoCao.themBaoCao(new BaoCaoThucTap("Thực tập 1", "D:\\ThucTap",
+        quanLyBaoCao.themBaoCao(new BaoCaoDoAn(
+                "Đồ án 1",
+                "D:\\DoAn",
+                LocalDate.parse("12/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
+                timGiangVien("GV01"),
+                timSinhVien("SV01")));
+        quanLyBaoCao.themBaoCao(new BaoCaoThucTap(
+                        "Thực tập 1",
+                        "D:\\ThucTap",
                         LocalDate.parse("10/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
                         timGiangVien("GV02"),
                         timSinhVien("SV02"),
                         timSinhVien("SV03")
+                )
+        );
+        List<GiangVien> giangViens=new ArrayList<>();
+        giangViens.add(timGiangVien("GV04"));
+        giangViens.add(timGiangVien("GV05"));
+        giangViens.add(timGiangVien("GV06"));
+        quanLyBaoCao.themBaoCao(new BaoCaoKhoaLuan("" +
+                "Khóa luận 1",
+                "D:\\KhoaLuan",
+                LocalDate.parse("10/12/2024", DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
+                timGiangVien("GV03"),
+                giangViens,
+                timSinhVien("SV10"),
+                timSinhVien("SV12")
                 )
         );
 
@@ -73,7 +93,11 @@ public class Main {
             switch (Integer.parseInt(CauHinh.sc.nextLine())) {
                 case 1 -> {
                     System.out.println("Chọn loại báo cáo nào: ");
-                    menuLoaiBaoCao();
+                    System.out.print("""
+                        \t\t\t1. Báo cáo thực tập
+                        \t\t\t2. Báo cáo đồ án ngành
+                        \t\t\t3. Báo cáo khóa luận tốt nghiệp
+                        \t\t\t-->\t\t""");
                     int flagDangKy = Integer.parseInt(CauHinh.sc.nextLine());
                     System.out.print("Nhập số lượng sinh viên thực hiện (1/2): ");
                     int soLuongSinhVienTYhucHien = Integer.parseInt(CauHinh.sc.nextLine());
@@ -231,8 +255,9 @@ public class Main {
                 case 6 -> {
                     System.out.println("-----------Tìm kiếm báo cáo-----------");
                     System.out.print("1. Tìm kiếm theo mã báo cáo\n" +
-                            "2. Tìm kiếm theo ngày\n" +
-                            "3. Tìm kiếm theo khoảng ngày\n" +
+                            "2. Tìm kiếm theo tên báo cáo\n" +
+                            "3. Tìm kiếm theo ngày\n" +
+                            "4. Tìm kiếm theo khoảng ngày\n" +
                             "\t\t\t-->\t\t");
                     switch (Integer.parseInt(CauHinh.sc.nextLine())) {
                         case 1 -> {
@@ -240,16 +265,20 @@ public class Main {
                             quanLyBaoCao.timKiem(CauHinh.sc.nextLine()).xuatBaoCao();
                         }
                         case 2 -> {
+                            System.out.print("Nhập tên báo cáo: ");
+                            quanLyBaoCao.timKiem(CauHinh.sc.nextLine(),1).forEach(baoCao -> baoCao.xuatBaoCao());
+                        }
+                        case 3 -> {
                             System.out.print("Nhập ngày báo cáo: ");
                             quanLyBaoCao.timKiem(LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER))).forEach(baoCao -> baoCao.xuatBaoCao());
                         }
-                        case 3 -> {
+                        case 4 -> {
                             System.out.print("Nhập khoảng thời gian: ");
                             System.out.print("Ngày 1: ");
-                            LocalDate ngay1 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
+                            LocalDate date1 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
                             System.out.print("Ngày 2: ");
-                            LocalDate ngay2 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
-                            quanLyBaoCao.timKiem(ngay1,ngay2).forEach(baoCao -> baoCao.xuatBaoCao());
+                            LocalDate date2 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
+                            quanLyBaoCao.timKiem(date1,date2).forEach(baoCao -> baoCao.xuatBaoCao());
                         }
                     }
 
@@ -265,6 +294,52 @@ public class Main {
                     System.out.print("Nhập mã báo cáo: ");
                     quanLyBaoCao.xemDiem(CauHinh.sc.nextLine());
                     break;
+                }
+                case 9 -> {
+                    System.out.println("-----------Tìm kiếm hội đồng-----------");
+                    System.out.print("1. Tìm kiếm theo mã hội đồng\n" +
+                            "2. Tìm kiếm hội đồng theo ngày làm việc\n" +
+                            "3. Tìm kiếm hội đồng theo khoảng ngày\n" +
+                            "4. Xuất tất cả hội đồng\n" +
+                            "\t\t\t-->\t\t");
+                    switch (Integer.parseInt(CauHinh.sc.nextLine())) {
+                        case 1 -> {
+                            System.out.print("Nhập mã hội đồng: ");
+                            try {
+                                quanLyBaoCao.timKiemHoiDong(CauHinh.sc.nextLine()).xuatHoiDong();
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        case 2 -> {
+                            System.out.print("Nhập ngày làm việc: ");
+                            try {
+                                quanLyBaoCao.timKiemHoiDong(LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER))).forEach(hoiDong -> hoiDong.xuatHoiDong());
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        case 3 -> {
+                            System.out.print("Nhập khoảng thời gian: ");
+                            System.out.print("Ngày 1: ");
+                            LocalDate date1 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
+                            System.out.print("Ngày 2: ");
+                            LocalDate date2 = LocalDate.parse(CauHinh.sc.nextLine(), DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER));
+                            try {
+                                quanLyBaoCao.timKiemHoiDong(date1,date2).forEach(HoiDong::xuatHoiDong);
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        case 4 -> {
+                            System.out.println("__Các hội đồng hiện có__");
+                            try {
+                                quanLyBaoCao.timKiemHoiDong().forEach(hoiDong -> hoiDong.xuatHoiDong());
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
                 }
                 case 0 -> flagExit = false;
             }

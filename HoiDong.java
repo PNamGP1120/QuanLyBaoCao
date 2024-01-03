@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,19 +9,22 @@ public class HoiDong implements ThemThanhVien {
 
     private LocalDate ngayLamViec;
 
-    public List<GiangVienThamGiaHoiDong> getGiangViens() {
-        return giangViens;
-    }
-
-    public void setGiangViens(List<GiangVienThamGiaHoiDong> giangViens) {
-        this.giangViens = giangViens;
-    }
-
     private List<GiangVienThamGiaHoiDong> giangViens = new ArrayList<>();
-    public HoiDong(String maHoiDong, LocalDate ngayLamViec,List<GiangVienThamGiaHoiDong> giangViens){
+    public HoiDong(String maHoiDong, LocalDate ngayLamViec,List<GiangVien> giangViens){
         this.maHoiDong = maHoiDong;
         this.ngayLamViec = ngayLamViec;
-        this.giangViens=giangViens;
+        if(giangViens.size()>=3&&giangViens.size()<=5){
+            nhapHoiDong(NhiemVu.CHU_TICH, giangViens.get(0));
+            nhapHoiDong(NhiemVu.THU_KY, giangViens.get(1));
+            nhapHoiDong(NhiemVu.PHAN_BIEN, giangViens.get(2));
+            if(giangViens.size()>=4){
+                nhapHoiDong(NhiemVu.UY_VIEN, giangViens.get(3));
+                if(giangViens.size()>=5){
+                    nhapHoiDong(NhiemVu.THU_KY, giangViens.get(4));
+                }
+            }
+
+        }
     }
 
     public HoiDong(String maHoiDong, LocalDate ngayLamViec) {
@@ -71,6 +75,22 @@ public class HoiDong implements ThemThanhVien {
     public void nhapHoiDong(NhiemVu nhiemVu, GiangVien giangVien) {
         giangViens.add(new GiangVienThamGiaHoiDong(this, giangVien, nhiemVu));
     }
+    public void xuatHoiDong(){
+        StringBuilder s=new StringBuilder();
+        giangViens.forEach(giangVienThamGiaHoiDong -> {
+            s.append(giangVienThamGiaHoiDong.getGiangVien().getHoTen().concat(" - ").concat(giangVienThamGiaHoiDong.getNhiemVu().toString().concat("\n"))) ;
+        });
+        System.out.printf("""
+                Mã hội đồng: %s
+                Ngày làm việc: %s
+                Thành viên: 
+                %s
+                """,
+                this.maHoiDong,
+                this.ngayLamViec.format(DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
+                s
+                );
+    }
 
     public void chamDiem() {
         this.giangViens.forEach(GiangVienThamGiaHoiDong::chamDiem);
@@ -80,6 +100,13 @@ public class HoiDong implements ThemThanhVien {
         this.giangViens.forEach(GiangVienThamGiaHoiDong::xemDiem);
     }
 
+    public void setGiangViens(List<GiangVienThamGiaHoiDong> giangViens) {
+        this.giangViens = giangViens;
+    }
+
+    public List<GiangVienThamGiaHoiDong> getGiangViens() {
+        return giangViens;
+    }
     public String getMaHoiDong() {
         return maHoiDong;
     }
