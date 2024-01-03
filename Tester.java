@@ -22,10 +22,18 @@ public class Tester {
             throw new RuntimeException(e);
         }
     }
+    public static SinhVien timSinhVien(String mSSV) {
+        return sinhViens.stream().filter(sinhVien -> sinhVien.getmSSV().equals(mSSV)).findFirst().get();
+    }
+
+
     public static void main(String[] args) {
+        sinhViens.forEach(sinhVien -> sinhVien.xuatSinhVien());
+        timSinhVien("SV12").xuatSinhVien();
+
 //        SinhVien sinhVien=new SinhVien("22","Nam", Year.of(Integer.parseInt("2004")),true, LocalDate.parse("02/12/2004",DateTimeFormatter.ofPattern("dd/MM/yyyy")),ChuyenNganh.IT);
-        SinhVien sinhVien=new SinhVien("22-Nam-2004-true-02/12/2004-IT".split("-"));
-        sinhVien.xuatSinhVien();
+//        SinhVien sinhVien=new SinhVien("22-Nam-2004-true-02/12/2004-IT".split("-"));
+//        sinhVien.xuatSinhVien();
 //        BaoCao baoCao=new BaoCaoDoAn("BC1","Báo cáo 1","D:\\",LocalDate.now(),new GiangVien("a","Thanh","HH1","HH2"));
 //        baoCao.chamDiem();
 //        baoCao.xemDiem();

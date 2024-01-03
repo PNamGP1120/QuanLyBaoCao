@@ -3,7 +3,9 @@ public class GiangVien {
     private String hoTen;
     private String hocHam;
     private String hocVi;
-    public GiangVien(){}
+
+    public GiangVien() {
+    }
 
     public GiangVien(String maGiangVien, String hoTen, String hocHam, String hocVi) {
         this.maGiangVien = maGiangVien;
@@ -11,14 +13,16 @@ public class GiangVien {
         this.hocHam = hocHam;
         this.hocVi = hocVi;
     }
-    public GiangVien(String[] data){
-        this(data[0],data[1],data[2],data[3] );
+
+    public GiangVien(String[] data) {
+        this(data[0], data[1], data[2], data[3]);
     }
-    public void xuatGiangVien(){
-        System.out.printf("Mã giảng viên: %s\n",this.maGiangVien);
-        System.out.printf("Họ và tên: %s\n",this.hoTen);
-        System.out.printf("Học hàm: %s\n",this.hocHam);
-        System.out.printf("Học vị: %s\n",this.hocVi);
+
+    public void xuatGiangVien() {
+        System.out.printf(
+                "Mã giảng viên: %s\nHọ và tên: %s\nHọc hàm: %s\nHọc vị: %s\n",
+                this.maGiangVien, this.hoTen,
+                this.hocHam, this.hocVi);
     }
 
     public String getMaGiangVien() {

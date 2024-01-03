@@ -12,6 +12,7 @@ public class SinhVien {
 
     /**
      * constructor
+     *
      * @param mSSV
      * @param hoTen
      * @param khoaHoc
@@ -25,8 +26,7 @@ public class SinhVien {
             Year khoaHoc,
             Boolean gioiTinh,
             LocalDate ngaySinh,
-            ChuyenNganh chuyenNganh
-    ) {
+            ChuyenNganh chuyenNganh) {
         this.mSSV = mSSV;
         this.hoTen = hoTen;
         this.khoaHoc = khoaHoc;
@@ -37,19 +37,18 @@ public class SinhVien {
 
     /**
      * Constructor add 1 line data from a file
+     *
      * @param String[] data
      */
-    public SinhVien(String[]data){
+    public SinhVien(String[] data) {
         this(
                 data[0],
                 data[1],
                 Year.of(Integer.parseInt(data[2])),
                 Boolean.parseBoolean(data[3]),
-                LocalDate.parse(data[4],DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
-                ChuyenNganh.valueOf(data[5])
-        );
+                LocalDate.parse(data[4], DateTimeFormatter.ofPattern(CauHinh.DATE_FORMATTER)),
+                ChuyenNganh.valueOf(data[5]));
     }
-
 
     /**
      * Hiển thị sinh viên theo định dạng sau
@@ -63,13 +62,13 @@ public class SinhVien {
      */
     public void xuatSinhVien() {
         System.out.printf("""
-                        MSSV: %s
-                        Họ và tên: %s
-                        Khóa học: %s
-                        Giới tính: %s
-                        Ngày sinh: %s
-                        Chuyên ngành: %s
-                        """,
+                MSSV: %s\n
+                Họ và tên: %s\n
+                Khóa học: %s\n
+                Giới tính: %s\n
+                Ngày sinh: %s\n
+                Chuyên ngành: %s\n
+                """,
                 this.mSSV,
                 this.hoTen,
                 this.khoaHoc.format(DateTimeFormatter.ofPattern(CauHinh.YEAR_FORMATTER)),
